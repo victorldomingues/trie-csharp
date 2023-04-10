@@ -5,25 +5,45 @@ var arvore = new Arvore();
 
 while (true)
 {
-    Console.WriteLine("Ação 0 - Sair");
-    Console.WriteLine("Ação 1 - Inserir");
-    Console.WriteLine("Ação 2 - Buscar");
-    var acao = Console.ReadLine();
 
-    if (acao == "0")
-        return;
-    else if (acao == "1")
+    foreach (var item in Enum.GetValues(typeof(Acao))
+    .Cast<Acao>())
     {
-        Console.WriteLine("Inserir: Informe a palavra:");
-        acao = Console.ReadLine();
-        arvore.Inserir(acao);
+        Console.WriteLine($"Ação: {item.GetHashCode()} - {item}");
     }
-    else if (acao == "2")
+
+    var linha = Console.ReadLine();
+
+    Enum.TryParse<Acao>(linha, true, out var acao);
+    Console.WriteLine(acao);
+
+    switch (acao)
     {
-        Console.WriteLine("Buscar: Informe a palavra:");
-        acao = Console.ReadLine();
-        var existe = arvore.Buscar(acao);
-        Console.WriteLine($"Exites: {existe}");
+        case Acao.Inserir:
+            {
+                Console.WriteLine("Inserir - Informe a palavra:");
+                linha = Console.ReadLine();
+                arvore.Inserir(linha);
+                break;
+            }
+
+        case Acao.Buscar:
+            {
+                Console.WriteLine("Buscar - Informe a palavra:");
+                linha = Console.ReadLine();
+                var existe = arvore.Buscar(linha);
+                Console.WriteLine($"Existe {linha}: {existe}");
+                break;
+            }
+        case Acao.Remover:
+            {
+                Console.WriteLine("Remover - Informe a palavra:");
+                linha = Console.ReadLine();
+                arvore.Remover(linha);
+                break;
+            }
+        case Acao.Sair:
+            return;
     }
 
 }
