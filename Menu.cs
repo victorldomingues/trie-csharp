@@ -2,6 +2,7 @@ public class Menu
 {
     private readonly Arvore _arvore;
     private readonly IEnumerable<Acao> _acoes;
+
     public Menu()
     {
         _arvore = new();
